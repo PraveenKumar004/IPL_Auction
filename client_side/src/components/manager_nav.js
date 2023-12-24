@@ -11,8 +11,8 @@ function Nav() {
       <div className='hn_sub'>
         <div>
           <Link to='/playerlist' className='hn_link'>Players List</Link>
-          <button className='hn_but'>Manager</button>
-          <button className='hn_but'>How To Win?</button>
+          <Link to='/about' className='hn_link'>About</Link>
+          <Link to='/about' className='hn_link'>About</Link>
         </div>
         <div>
           <Link to='/about' className='hn_link'>About</Link>

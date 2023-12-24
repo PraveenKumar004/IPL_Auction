@@ -62,3 +62,8 @@
 .pop_content{
     padding-top: 1vh;
 }
+.close_button{
+    font-size: x-large;
+    color: #1585FA;
+    cursor: pointer;
+}

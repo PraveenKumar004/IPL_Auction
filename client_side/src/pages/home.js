@@ -13,9 +13,7 @@ function Home() {
 
   const [values, setValues] = useState({
     nam: '',
-    password: '',
-    lnam:'',
-    lpassword:''
+    password: '', amount:'',
   });
 
   function inputGetting(e) {
@@ -30,8 +28,13 @@ function Home() {
     e.preventDefault();
     try {
         const response = await axios.post('http://localhost:5000/reg', values)
-        .then(
-          navigate('/manager')
+        .then( result =>{
+          if(result.data === "stored"){
+            navigate('/manager')
+          }
+        else{
+          alert("Already Exist Username")
+        }}
         )   
     } catch (error) {
         console.error("Error", error.message);
@@ -45,15 +48,17 @@ const lsubmit = async (e) => {
       if(result.data === "login_success"){
         navigate('/manager')
         }
+      else if(result.data === "Wrong_username"){
+        alert("Wrong Username!!")
+      }  
       else{
-        alert("Check Username or Password")
+        alert("Wrong Password!!")
       }
       }
     )   
 } catch {
     console.error("Error");
-}
-  
+} 
 };
 
 
@@ -80,7 +85,7 @@ const lsubmit = async (e) => {
           <div><h1 className='home_manage'>Manager</h1></div>
           <div className='man_but'>
             <h1 className='home_manage_sup'>Sign up</h1>
-            <form className='from_di' >
+            <form className='from_di' onSubmit={submit}>
               <h1 className='home_id'>ID : </h1>
               <select className='home_sel' required>
                 <option>Select Time</option>
@@ -88,20 +93,19 @@ const lsubmit = async (e) => {
                 <option>1.30 Minutes</option>
                 <option>2.00 Minutes</option>
               </select>
-              <input placeholder='ENTER ID' className='create_inp' required name='nam' onChange={inputGetting}></input>
+              <input placeholder='ENTER USERNAME' className='create_inp' required name='nam' onChange={inputGetting}></input>
               <input type='password' placeholder='ENTER PASSWORD' className='create_inp' name='password' onChange={inputGetting} required></input>
-              <input type='password' placeholder='RE-ENTER PASSWORD' className='create_inp' ></input>
-              <input type='number' placeholder='ENTER AMOUNT (MAX 100C)' className='create_inp'></input>
-              <div className='but_back'><button type='submit' className='create_b' onClick={submit}> Sign up</button></div>
+              <input type='number' placeholder='ENTER AMOUNT (MAX 100C)'className='create_inp' min='1' max='100' name='amount'  onChange={inputGetting} required></input>
+              <div className='but_back'><button type='submit' className='create_b'> Sign up</button></div>
             </form>
           </div>
         </Popupbox>
         <Popupbox open={exist} close={() => { setExist(false) }}>
           <div>
-            <form>
+            <form onSubmit={lsubmit}>
               <div><input placeholder='ENTER ID' className='create_inp' required name="nam" onChange={inputGetting}></input></div>
               <div><input type='password' placeholder='ENTER PASSWORD' className='create_inp' name="password" required onChange={inputGetting}></input></div>
-              <div className='but_back'><button type='submit' className='create_b' onClick={lsubmit}>Log in</button></div>
+              <div className='but_back'><button type='submit' className='create_b'>Log in</button></div>
             </form>
           </div>
         </Popupbox>
