@@ -24,22 +24,19 @@ function Home() {
     console.log(newDetails)
   }
   const submit = async (e) => {
-    console.log("click");
     e.preventDefault();
     try {
-        const response = await axios.post('http://localhost:5000/reg', values)
-        .then( result =>{
-          if(result.data === "stored"){
-            navigate('/manager')
-          }
-        else{
-          alert("Already Exist Username")
-        }}
-        )   
+      const response = await axios.post('http://localhost:5000/reg', values);
+      if (response.data === "same") {
+        alert("Already Exist Username");
+      } else {
+        console.log(response);
+        navigate(`/contestant/${response.data}`); 
+      }
     } catch (error) {
-        console.error("Error", error.message);
+      console.error("Error", error.message);
     }
-};
+  };
 const lsubmit = async (e) => {
   e.preventDefault();
   try {

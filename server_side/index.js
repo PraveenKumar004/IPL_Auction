@@ -23,8 +23,8 @@ app.post('/reg', async (req, res) => {
         password,
         amount,
       });
-      console.log("Data stored successfully:", newUser);
-      res.json("stored");
+      console.log("Data stored successfully:", newUser.nam);
+      res.json(newUser.id);
     }
   } catch (err) {
     console.error("Error storing data", err);
@@ -48,12 +48,54 @@ app.post('/log', async (req, res) => {
     res.json( "Wrong_username");
   }
 });
+// app.post("/contestant", async (req, res) => {
+//   try {
+//       const result = await manger_signup.find({ _id: req.body.id });
+//       console.log(result);
+//       res.send(result);
+//     } catch (err) {
+//       console.log("error by post by id:",err);
+//     }
+// });
 
-app.get('/get', async(req,res)=>{
-    manger_signup.find()
-    .then(console.log("finded"))
-    .catch(console.log("cannot Find"))
-});
+// Update the route to handle both POST and GET requests
+app.route('/contestant/:id')
+  .post(async (req, res) => {
+    const { id } = req.body;
+    try {
+      const user = await manger_signup.findById(id);
+      if (user) {
+        console.log("User found:", user);
+        res.json(user);
+      } else {
+        console.log("User not found");
+        res.json("id Not Found");
+      }
+    } catch (error) {
+      console.error("Error fetching user by ID", error);
+      res.status(500).json("Internal Server Error");
+    }
+  })
+  // .get(async (req, res) => {
+  //   const { id } = req.params;
+  //   try {
+  //     const user = await manger_signup.findById(id);
+  //     if (user) {
+  //       console.log("User found:", user);
+  //       res.json(user);
+  //     } else {
+  //       console.log("User not found");
+  //       res.json("id Not Found");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching user by ID", error);
+  //     res.status(500).json("Internal Server Error");
+  //   }
+  // });
+
+
+
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

@@ -4,25 +4,25 @@ import { useParams } from 'react-router-dom';
 import '../styles/manager.css';
 import axios from 'axios'
 import { MdPersonAddAlt1 } from "react-icons/md";
-import { RiAuctionFill } from "react-icons/ri";
-import { FaUndoAlt } from "react-icons/fa";
+import { FaHandPaper } from "react-icons/fa";
 
 const Manager = () => {
-  const [details, setdetails] = useState({});
-  const { nam } = useParams();
   const [result, setResult] = useState();
+  const { id } = useParams();
+  const params = useParams();
 
-  // useEffect(() => {
-  //   axios.post(`http://localhost:5000/contestant/${id}`, { id })
-  //     .then(response => {
-  //       setResult(response.data);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // }, [id]);
-
-
+  useEffect(() => {
+    axios.post('http://localhost:5000/contestant/${id}', { id })
+      .then(response => {
+        setResult(response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, [id]);
+   
+  console.log("check:",{id})
+  console.log("new 1:",result)
   return (
     <>
       <div className='Main'>
@@ -31,7 +31,8 @@ const Manager = () => {
                 <h1 className='home_title_head'>IPL Auction</h1>
               </div>
               <div>
-                <h1 className='man_title'>Manager Username :</h1>
+                <h1 className='man_title'>Team Name: {result ? result.nam : 'No Team'}</h1>
+                <h6 className='con_pot'>Total Points : </h6>
               </div>
               <div className='man_mainb'>
                 <div className='man_con_flex'>
@@ -68,8 +69,8 @@ const Manager = () => {
                   </div>
                   <div className='man_r_con_2'>
                     <h1 className='man_icon'><MdPersonAddAlt1 /></h1>
-                    <h1 className='man_icon_2'><RiAuctionFill /></h1>
-                    <h1 className='man_icon'><FaUndoAlt /></h1>
+                    <h1 className='man_icon_3'>Make Bid</h1>
+                    <h1 className='man_icon'><FaHandPaper /></h1>
                   </div>
                 </div>
                 <div className='man_table'>
@@ -77,7 +78,7 @@ const Manager = () => {
                   {/* <p>Extend Time:</p> */}
                   <div>
                     <div className='man_t_body'>
-                      <div className='man_t_head'>TEAMS NEEDED OR NOT</div>
+                      <div className='man_t_head'>PLAYERs LIST</div>
                       <div className='tab_body_con'>
                         <p className='man_title'>RCB</p>
                         <button className='man_n_but'>Need?</button>

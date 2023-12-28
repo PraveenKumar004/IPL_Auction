@@ -13,6 +13,11 @@
     margin-left: 1vh;
     color: #1585FA;
 }
+.con_pot{
+    font-size: large;
+    margin-top: 1vh;
+    margin-left: 1vh;
+}
 .man_title_u{
     margin-top: 1.5vh;
     font-size: xx-large;
@@ -133,7 +138,13 @@
     cursor: pointer;
 }
 .man_icon_2{
-    width: 6vh;
-    height: 6vh;
+    width: 7vh;
+    height: 7vh;
+    font-size: 5vh;
+}
+.man_icon_3{
+    width: 25vh;
+    height: 4vh;
+    border-radius: 3vh;
     font-size: 5vh;
 }

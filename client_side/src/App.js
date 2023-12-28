@@ -7,6 +7,8 @@ import About from './pages/about'
 import Feedback from './pages/feedback'
 import Manager_nav from './components/manager_nav'
 import Manager from './pages/manager'
+import Contestant from './pages/contestant'
+import Contest_nav from './components/contest_nav'
 
 function App() {
   return (
@@ -21,6 +23,9 @@ function App() {
         </Route>
         <Route path='/manager' element={<Manager_nav/>}>
           <Route path='/manager' element={<Manager/>}/>
+        </Route>
+        < Route path='contestant/:id' element={<Contest_nav/>}>
+          <Route path='/contestant/:id' element={<Contestant/>}/>
         </Route>
       </Routes>
 
